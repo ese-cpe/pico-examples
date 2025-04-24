@@ -1,0 +1,66 @@
+= Attaching a LAN8651 10BASE-T1S Ethernet PHY via SPI
+
+This example code demonstrates how to interface the Raspberry Pi Pico with a Microchip LAN8651 10BASE-T1S Ethernet PHY using SPI. The LAN8651 provides single-pair Ethernet (IEEE 802.3cg) connectivity and is managed through a specialized SPI interface.
+
+The example includes:
+- PHY initialization and reset sequences
+- Register access via both direct and MMD (Clause-22) methods
+- PHY identification and health monitoring
+- MAC address reading
+
+== Wiring information
+
+Wiring up the LAN8651 requires the following connections:
+
+   * GPIO  2 (pin  4) SCK/spi0_sclk  -> SCLK on LAN8651
+   * GPIO  3 (pin  5) MOSI/spi0_tx   -> SDI  on LAN8651 (PHY input)
+   * GPIO  4 (pin  6) MISO/spi0_rx   -> SDO  on LAN8651 (PHY output)
+   * GPIO  5 (pin  7) Chip select    -> CS_N on LAN8651
+   * GPIO  0 (pin 17) Reset control  -> RESET_N on LAN8651
+   * 3.3v (pin 36)    -> VDDIO on LAN8651 (I/O power)
+   * GND (pin 38)     -> GND on LAN8651
+
+[NOTE]
+======
+The LAN8651 requires proper power supply configuration beyond just VDDIO. Ensure all power pins (VDD12, VDD33, etc.) are properly connected as specified in the datasheet. A typical evaluation board will handle this properly if you're using one.
+======
+
+[[LAN8651_spi_wiring]]
+[pdfwidth=75%]
+.Wiring Diagram for LAN8651.
+image::lan8651_spi_bb.png[]
+
+== Key Features Demonstrated
+
+- PHY hardware and software reset procedures
+- Reading PHY identification registers (OUI, model, revision)
+- Accessing OA (Operation and Administration) registers
+- Reading the built-in MAC address
+- Vendor-specific register access
+- MMD (MDIO Manageable Device) register access
+
+== List of Files
+
+CMakeLists.txt:: CMake file to incorporate the example into the build system
+LAN8651_REGS.c:: Main implementation file with all register access functions
+LAN8651_REGS.h:: Header file with register definitions
+
+== Bill of Materials
+
+.A list of materials required for the example
+[[LAN8651-bom-table]]
+[cols=3]
+|===
+| *Item* | *Quantity* | Details
+| Breadboard | 1 | generic part
+| Raspberry Pi Pico | 1 | https://www.raspberrypi.com/products/raspberry-pi-pico/
+| LAN8651 Evaluation Board | 1 | Microchip LAN8651-EVB
+| M/M Jumper wires | 7+ | generic part (exact count depends on power connections)
+| 3.3V power supply | 1 | For PHY power requirements
+|===
+
+== References
+
+- Microchip LAN8651 Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN8650-LAN8651-Data-Sheet-DS00003793.pdf
+- IEEE 802.3 Clause 22 (MDIO) specification
+- Raspberry Pi Pico pinout: https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf

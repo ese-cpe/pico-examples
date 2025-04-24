@@ -1,4 +1,5 @@
 if (TARGET hardware_i2c)
+	add_subdirectory_exclude_platforms(ina700_i2c)
     add_subdirectory_exclude_platforms(bmp280_i2c)
     add_subdirectory_exclude_platforms(bus_scan)
     add_subdirectory_exclude_platforms(lcd_1602_i2c)

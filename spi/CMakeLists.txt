@@ -1,4 +1,5 @@
 if (TARGET hardware_spi)
+    add_subdirectory_exclude_platforms(lan8651_spi)
     add_subdirectory_exclude_platforms(bme280_spi)
     add_subdirectory_exclude_platforms(mpu9250_spi)
     add_subdirectory_exclude_platforms(spi_dma)
